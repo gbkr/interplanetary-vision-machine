@@ -263,7 +263,7 @@ export default function Filters({
       <FormControl variant="outlined" className={classes.formControl}>
         <Select
           value={rover}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRover(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRover((e.target as HTMLInputElement).value)}
           variant="outlined"
         >
           {Object.keys(roverData).map((rover) => {
@@ -280,7 +280,7 @@ export default function Filters({
         <FormControl variant="outlined" className={classes.formControl}>
           <Select
             value={camera}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCamera(e.currentTarget.value as Camera)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCamera(e.target.value)}
             key={camera}
           >
             {copts}
