@@ -280,7 +280,7 @@ export default function Filters({
         <FormControl variant="outlined" className={classes.formControl}>
           <Select
             value={camera}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCamera(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCamera((e.target as HTMLInputElement).value as Camera)}
             key={camera}
           >
             {copts}

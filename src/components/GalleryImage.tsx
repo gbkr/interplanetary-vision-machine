@@ -37,7 +37,7 @@ export default function GalleryImage(image: MarsImage): React.ReactElement {
           <Tooltip arrow title={image.desc}>
             <Mimg
               src={image.imgSrc}
-              key={image.desc}
+              key={image.id}
               onLoad={onload}
               alt={image.desc}
               onClick={() => setIsOpen(!isOpen)}
@@ -48,6 +48,7 @@ export default function GalleryImage(image: MarsImage): React.ReactElement {
             <Dimg
               src={image.imgSrc}
               alt={image.desc}
+              key={`M-${image.id}`}
               onClick={() => setIsOpen(!isOpen)}
             />
           </Modal>
