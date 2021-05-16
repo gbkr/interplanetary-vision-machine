@@ -18,7 +18,7 @@ import { cameraInfo } from "../constants";
 import { fetchRoverData, fetchImages } from "../services/nasa";
 import { calcEarthDate, filterByCamera } from "../utils/utils";
 import { useViewPort, usePrevious } from "../hooks";
-import * as dayjs from 'dayjs'
+import * as dayjs from "dayjs";
 
 const SolChange = styled.span`
   cursor: pointer;
@@ -135,7 +135,13 @@ export default function Filters({
         fetchImages({ rover, sol, camera, prevCamera, allImages }).then(
           (data) => {
             setAllImages(data);
-            solCameras(data).then((cam) => setAvailableCameras(cam));
+            solCameras(data).then((cam) => {
+              if (cam.includes(camera)) {
+                setAvailableCameras(cam);
+              } else {
+                setCamera("ALL");
+              }
+            });
             setEarthDate(calcEarthDate(data));
             setImages(filterByCamera(camera, data));
             setLoading(false);
@@ -208,8 +214,9 @@ export default function Filters({
     const ratioOfEarthToMarsDay = 1.02749125;
     const currentDate = new Date(earthDate);
     const diff = Math.ceil(
-      Math.abs((djs.unix() * 1000 - currentDate.getTime()) / (1000 * 3600 * 24)) /
-        ratioOfEarthToMarsDay
+      Math.abs(
+        (djs.unix() * 1000 - currentDate.getTime()) / (1000 * 3600 * 24)
+      ) / ratioOfEarthToMarsDay
     );
     const newSol = djs.toDate() > currentDate ? sol + diff : sol - diff;
     setSol(newSol);
@@ -263,7 +270,9 @@ export default function Filters({
       <FormControl variant="outlined" className={classes.formControl}>
         <Select
           value={rover}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRover((e.target as HTMLInputElement).value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setRover((e.target as HTMLInputElement).value)
+          }
           variant="outlined"
         >
           {Object.keys(roverData).map((rover) => {
@@ -280,7 +289,9 @@ export default function Filters({
         <FormControl variant="outlined" className={classes.formControl}>
           <Select
             value={camera}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCamera((e.target as HTMLInputElement).value as Camera)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setCamera((e.target as HTMLInputElement).value as Camera)
+            }
             key={camera}
           >
             {copts}
