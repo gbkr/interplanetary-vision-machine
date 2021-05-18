@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-}), {index: 1});
+}));
 
 interface FilterProps {
   loading: boolean;
@@ -319,7 +319,7 @@ export default function Filters({
 
         <DateInfo>
           <span>
-            Sol {solInput ? solTextInput() : solTextOutput()} of {maxSolNo()}
+            { width > breakTwo && 'Sol' } {solInput ? solTextInput() : solTextOutput()} of {maxSolNo()}
           </span>
 
           {width > breakTwo && (
